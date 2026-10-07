@@ -1,0 +1,19 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  skills:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Nothing validates skill frontmatter on the way to a user's machine, and every way it can be
+      # wrong fails quietly. See the comment at the top of the script.
+      - name: check skills
+        run: bash scripts/check-skills.sh
